@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Rodada } from "./RodadaEntity";
+import { Usuario } from "./UsuarioEntity";
 
 @Entity()
 export class Campeonato {
@@ -22,4 +24,10 @@ export class Campeonato {
 
     @Column()
     idCampeonatoApiExterna: number;
+
+    @ManyToMany(() => Usuario)
+    usuarios: Usuario[];
+
+    @OneToMany(() => Rodada, rodada => rodada.campeonato)
+    rodada: Rodada[];
 }

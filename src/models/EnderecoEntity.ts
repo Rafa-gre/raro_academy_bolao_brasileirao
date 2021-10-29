@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Endereco {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -23,4 +24,6 @@ export class Endereco {
     @Column({ nullable: false })
     estado: string;
 
+    @OneToOne(() => Endereco, endereco => endereco.usuario, { cascade: true })
+    endereco: Endereco;
 }

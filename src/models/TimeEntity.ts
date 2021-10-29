@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Partida } from "./PartidaEntity";
+
 
 @Entity()
 export class Time {
@@ -13,4 +15,7 @@ export class Time {
 
     @Column({ nullable: false })
     escudo: string;
+
+    @ManyToOne(() => Partida, partida => partida.aposta)
+    partida: Partida;
 }

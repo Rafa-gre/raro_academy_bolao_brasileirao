@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Campeonato } from "./CampeonatoEntity";
+import { Partida } from "./PartidaEntity";
 
 
 @Entity()
@@ -18,5 +20,11 @@ export class Rodada {
 
     @Column({ nullable: false })
     status: string;
+
+    @ManyToOne(() => Campeonato, campeonato => campeonato.aposta)
+    campeonato: Campeonato;
+
+    @OneToMany(() => Partida, partida => partida.rodada)
+    partida: Rodada[];
 
 }

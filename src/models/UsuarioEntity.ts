@@ -7,13 +7,13 @@ import { Endereco } from "./EnderecoEntity";
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
-  
+
   @Column()
   nome: string;
 
   @Column({ unique: true, nullable: false })
   email: string;
-  
+
   @Column()
   hashSenha: string;
 

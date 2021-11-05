@@ -3,11 +3,27 @@ import { Usuario } from "./UsuarioEntity";
 
 @Entity()
 export class Endereco {
+
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   cep: string;
+
+  @Column({ nullable: false })
+  logradouro: string;
+
+  @Column({ nullable: false })
+  complemento: string;
+
+  @Column({ nullable: false })
+  numero: string;
+
+  @Column({ nullable: false })
+  bairro: string;
+
+  @Column({ nullable: false })
+  estado: string;
 
   @OneToOne(() => Usuario, usuario => usuario.endereco)
   @JoinColumn()

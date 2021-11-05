@@ -39,6 +39,4 @@ export class Partida {
     @ManyToOne(() => Time, time => time.partida)
     visitante: Time;
 
-    @OneToMany(() => Time, time => time.partida)
-    times: Time[];
 }

@@ -19,10 +19,10 @@ export class Time {
     @ManyToOne(() => Partida, partida => partida.apostas)
     partida: Partida;
 
-    @OneToMany(() => Partida, partida => partida.times)
+    @OneToMany(() => Partida, partida => partida.mandante)
     partidasMandante: Partida[];
 
-    @OneToMany(() => Partida, partida => partida.times)
+    @OneToMany(() => Partida, partida => partida.visitante)
     partidasVisitante: Partida[];
 
 

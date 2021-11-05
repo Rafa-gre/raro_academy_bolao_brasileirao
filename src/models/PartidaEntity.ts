@@ -13,12 +13,6 @@ export class Partida {
     placar: string;
 
     @Column({ nullable: false })
-    mandante: Time
-
-    @Column({ nullable: false })
-    visitante: Time
-
-    @Column({ nullable: false })
     placarMandante: number;
 
     @Column({ nullable: false })
@@ -39,6 +33,14 @@ export class Partida {
     @ManyToOne(() => Rodada, rodada => rodada.partida)
 
     rodada: Rodada;
+
+    @ManyToOne(() => Time, time => time.partida)
+
+    mandante: Time;
+
+    @ManyToOne(() => Time, time => time.partida)
+
+    visitante: Time;
 
     @OneToMany(() => Time, time => time.partida)
     times: Time[];

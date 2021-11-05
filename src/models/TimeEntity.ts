@@ -16,17 +16,13 @@ export class Time {
     @Column({ nullable: false })
     escudo: string;
 
-
     @ManyToOne(() => Partida, partida => partida.apostas)
-
     partida: Partida;
 
     @OneToMany(() => Partida, partida => partida.times)
-
     partidasMandante: Partida[];
 
     @OneToMany(() => Partida, partida => partida.times)
-
     partidasVisitante: Partida[];
 
 

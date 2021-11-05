@@ -33,6 +33,5 @@ export class Usuario {
 
 
   @ManyToMany(() => Campeonato, campeonato => campeonato.usuarios)
-
   campeonatos: Campeonato[];
 }

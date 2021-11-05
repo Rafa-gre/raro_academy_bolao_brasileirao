@@ -22,7 +22,6 @@ export class Rodada {
     status: string;
 
     @ManyToOne(() => Campeonato, campeonato => campeonato.rodada)
-
     campeonato: Campeonato;
 
     @OneToMany(() => Partida, partida => partida.rodada)

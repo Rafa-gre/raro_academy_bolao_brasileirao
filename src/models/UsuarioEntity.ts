@@ -17,6 +17,9 @@ export class Usuario {
   @Column()
   hashSenha: string;
 
+  @Column({ nullable: false, default: true })
+  ativo: boolean;
+
   @OneToOne(() => Usuario, usuario => usuario.endereco)
   @JoinColumn()
   usuario: Usuario;

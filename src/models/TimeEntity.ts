@@ -18,4 +18,8 @@ export class Time {
 
     @ManyToOne(() => Partida, partida => partida.aposta)
     partida: Partida;
+
+
+
+
 }

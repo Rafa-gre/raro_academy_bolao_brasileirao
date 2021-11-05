@@ -36,7 +36,7 @@ export class Partida {
     @OneToMany(() => Aposta, aposta => aposta.partida)
     apostas: Aposta[];
 
-    @ManyToOne(() => Rodada, rodada => rodada.aposta)
+    @ManyToOne(() => Rodada, rodada => rodada.apostas)
     rodada: Rodada;
 
     @OneToMany(() => Time, time => time.partida)

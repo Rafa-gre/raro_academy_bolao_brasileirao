@@ -4,6 +4,7 @@ import { Usuario } from "./UsuarioEntity";
 
 @Entity()
 export class Campeonato {
+
   @PrimaryGeneratedColumn()
   id: number;
 

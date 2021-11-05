@@ -16,7 +16,9 @@ export class Time {
     @Column({ nullable: false })
     escudo: string;
 
+
     @ManyToOne(() => Partida, partida => partida.apostas)
+
     partida: Partida;
 
 

@@ -1,6 +1,9 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+import { Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Aposta } from "./ApostaEntity";
 import { Campeonato } from "./CampeonatoEntity";
+import { Endereco } from "./EnderecoEntity";
+
 
 @Entity()
 export class Usuario {
@@ -11,7 +14,7 @@ export class Usuario {
   @Column()
   nome: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   email: string;
 
   @Column()
@@ -20,14 +23,16 @@ export class Usuario {
   @Column({ nullable: false, default: true })
   ativo: boolean;
 
-  @OneToOne(() => Usuario, usuario => usuario.endereco)
-  @JoinColumn()
-  usuario: Usuario;
+
+  @OneToOne(() => Endereco, endereco => endereco.usuario, { cascade: true })
+  endereco: Endereco;
+
 
   @OneToMany(() => Aposta, aposta => aposta.usuario)
   apostas: Aposta[];
 
-  @ManyToMany(() => Campeonato, { cascade: true })
-  @JoinTable()
+
+  @ManyToMany(() => Campeonato, campeonato => campeonato.usuarios)
+
   campeonatos: Campeonato[];
 }

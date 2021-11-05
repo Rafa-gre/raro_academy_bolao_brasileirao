@@ -4,30 +4,31 @@ import { Usuario } from "./UsuarioEntity";
 
 @Entity()
 export class Campeonato {
-    @PrimaryGeneratedColumn()
-    id: number;
 
-    @Column({ nullable: false })
-    nome: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ nullable: false })
-    slug: string;
+  @Column({ nullable: false })
+  nome: string;
 
-    @Column({ nullable: false })
-    nomePopular: string;
+  @Column({ nullable: false })
+  slug: string;
 
-    @Column({ nullable: false })
-    status: string;
+  @Column({ nullable: false })
+  nomePopular: string;
 
-    @Column({ nullable: false })
-    logo: string;
+  @Column({ nullable: false })
+  status: string;
 
-    @Column()
-    idCampeonatoApiExterna: number;
+  @Column({ nullable: false })
+  logo: string;
 
-    @ManyToMany(() => Usuario)
-    usuarios: Usuario[];
+  @Column()
+  idCampeonatoApiExterna: number;
 
-    @OneToMany(() => Rodada, rodada => rodada.campeonato)
-    rodada: Rodada[];
+  @ManyToMany(() => Usuario)
+  usuarios: Usuario[];
+
+  @OneToMany(() => Rodada, rodada => rodada.campeonato)
+  rodada: Rodada[];
 }

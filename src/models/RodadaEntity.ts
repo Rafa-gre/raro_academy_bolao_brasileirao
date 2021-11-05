@@ -20,8 +20,9 @@ export class Rodada {
 
     @Column({ nullable: false })
     status: string;
+  
+    @ManyToOne(() => Campeonato, campeonato => campeonato.rodada)
 
-    @ManyToOne(() => Campeonato, campeonato => campeonato.aposta)
     campeonato: Campeonato;
 
     @OneToMany(() => Partida, partida => partida.rodada)

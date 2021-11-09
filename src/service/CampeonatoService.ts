@@ -1,7 +1,7 @@
 import { CampeonatoDTO } from "../@types/dtos/campeonatoDto";
-import { ICampeonatoRepository } from "repositories/ICampeonatoRepository";
+import { ICampeonatoRepository } from "../repositories/ICampeonatoRepository";
 import { ICampeonatoService } from "./ICampeonatoService";
-import { Campeonato } from "models/CampeonatoEntity";
+import { Campeonato } from "../models/CampeonatoEntity";
 
 export class CampeonatoService implements ICampeonatoService {
     public static TEMPO_PARA_EXPIRACAO_DE_TOKEN = '6 hours';

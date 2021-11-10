@@ -8,19 +8,19 @@ export class Campeonato {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: "Campeonato" })
   nome: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: "-" })
   slug: string;
 
-  @Column({ nullable: false })
+  @Column({ default: "-" })
   nomePopular: string;
 
-  @Column({ nullable: false })
+  @Column({ default: "-" })
   status: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: "-" })
   logo: string;
 
   @Column()

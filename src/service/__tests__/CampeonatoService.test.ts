@@ -1,4 +1,5 @@
 
+import { RodadaRepository } from '../../repositories/RodadaRepository';
 import { CampeonatoDTO } from '../../@types/dtos/campeonatoDto';
 import { Campeonato } from '../../models/CampeonatoEntity';
 import { CampeonatoRepository } from '../../repositories/CampeonatoRepository';
@@ -9,7 +10,7 @@ describe('UsuarioService', () => {
     let campeonatoDto: CampeonatoDTO;
     let campeonatoRepository: CampeonatoRepository;
     let campeonatoService: CampeonatoService;
-
+    let rodadaRepository: RodadaRepository;
     const oldEnv = process.env;
 
     afterEach(() => {
@@ -24,7 +25,8 @@ describe('UsuarioService', () => {
             idCampeonatoApiExterna: 10,
         };
         campeonatoRepository = new CampeonatoRepository();
-        campeonatoService = new CampeonatoService(campeonatoRepository);
+        rodadaRepository = new RodadaRepository();
+        campeonatoService = new CampeonatoService(campeonatoRepository, rodadaRepository);
 
     });
 

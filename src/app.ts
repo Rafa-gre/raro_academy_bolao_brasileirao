@@ -1,7 +1,11 @@
 import 'reflect-metadata';
 import * as dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
-import { runner } from './examples';
+import { runner } from '../src/examples';
+import { CampeonatoService } from './service/CampeonatoService'
+import { ICampeonatoRepository } from './repositories/ICampeonatoRepository';
+import { CampeonatoRepository } from './repositories/CampeonatoRepository';
+
 dotenv.config();
 
 export const start = async () => {

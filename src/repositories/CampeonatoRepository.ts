@@ -8,7 +8,7 @@ export class CampeonatoRepository extends Repository<Campeonato> implements ICam
         return this.findOne({ where: { email } });
     }
 
-    findById(id: number) {
-        return this.findOne(id);
+    findById(idCampeonatoApiExterna: number) {
+        return this.findOne({ where: { idCampeonatoApiExterna } });
     }
 }

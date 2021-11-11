@@ -1,6 +1,6 @@
 import { Tabela } from "../@types/dtos/api-brasileirao/Tabela";
 import { RodadaDetalhe } from "../@types/dtos/api-brasileirao/RodadaDetalhe";
-import { Rodada } from "../@types/dtos/api-brasileirao/Rodada";
+import { RodadaDTO } from "../@types/dtos/api-brasileirao/rodadaDto";
 import { HttpClient } from "../@types/infra/http/HttpClient"
 
 export default class APIBrasileirao {
@@ -12,6 +12,7 @@ export default class APIBrasileirao {
     public async getTabelaAPI(): Promise<Tabela[]> {
         try {
             const url = `${this.API_BRASILEIRAO}/campeonatos/${this.idCampeonatoApiExterna}/tabela`;
+            console.log(url);
             const campeonato = await this.httpClient.get<Tabela[]>(url, {
                 headers: { Authorization: this.BRASILEIRAO_BEARER },
             });
@@ -26,11 +27,11 @@ export default class APIBrasileirao {
             }
         }
     }
-    public async getRodadaAPI(): Promise<Rodada[]> {
+    public async getRodadaAPI(): Promise<RodadaDTO[]> {
         try {
             const url = `${this.API_BRASILEIRAO}/campeonatos/${this.idCampeonatoApiExterna}/rodadas`;
             console.log(url);
-            const rodada = await this.httpClient.get<Rodada[]>(url, {
+            const rodada = await this.httpClient.get<RodadaDTO[]>(url, {
                 headers: { Authorization: this.BRASILEIRAO_BEARER },
             });
             return rodada.data;

@@ -1,17 +1,14 @@
 import { CampeonatoDTO } from "../@types/dtos/campeonatoDto";
 import { ICampeonatoRepository } from "../repositories/ICampeonatoRepository";
-import { ICampeonatoService } from "./ICampeonatoService";
 import { Campeonato } from "../models/CampeonatoEntity";
 import CampeonatoClient from "../clients/CampeonatoClient";
 import { AxiosHttpClient } from "../infra/http/AxiosHttpClient";
-import { Rodada as RodadaDTO } from "../@types/dtos/api-brasileirao/Rodada";
+import { RodadaDTO } from "../@types/dtos/api-brasileirao/rodadaDto";
 import { RodadaDetalhe } from "../@types/dtos/api-brasileirao/RodadaDetalhe";
-import { Time } from "../models/TimeEntity";
-import { Partida } from "../models/PartidaEntity";
-import { Rodada } from "../models/RodadaEntity";
 
 
-export class CampeonatoService implements ICampeonatoService {
+
+export class CampeonatoService {
 
     constructor(private campeonatoRepository: ICampeonatoRepository
     ) { }
@@ -42,6 +39,7 @@ export class CampeonatoService implements ICampeonatoService {
             if (campeonato.idCampeonatoApiExterna === campeonatoApi[1].partidas[1].campeonato.campeonato_id) {
                 campeonato.nome = campeonatoApi[1].partidas[1].campeonato.nome;
                 campeonato.slug = campeonatoApi[1].partidas[1].campeonato.slug;
+                campeonato.status = "ativo"
 
                 await this.campeonatoRepository.save(campeonato);
             }
@@ -51,6 +49,5 @@ export class CampeonatoService implements ICampeonatoService {
             throw error;
         }
     }
-
 
 }

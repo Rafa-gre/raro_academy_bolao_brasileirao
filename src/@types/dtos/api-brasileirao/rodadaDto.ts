@@ -1,4 +1,4 @@
-export interface Rodada {
+export interface RodadaDTO {
   nome: string;
   slug: string;
   rodada: number;

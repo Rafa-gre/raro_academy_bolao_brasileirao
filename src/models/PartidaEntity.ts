@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Aposta } from "./ApostaEntity";
 import { Rodada } from "./RodadaEntity";
 import { Time } from "./TimeEntity";
@@ -33,10 +33,10 @@ export class Partida {
     @ManyToOne(() => Rodada, rodada => rodada.partida)
     rodada: Rodada;
 
-    @ManyToOne(() => Time, time => time.partida)
+    @OneToMany(() => Time, time => time.partida)
     mandante: Time;
 
-    @ManyToOne(() => Time, time => time.partida)
+    @OneToMany(() => Time, time => time.partida)
     visitante: Time;
 
 }

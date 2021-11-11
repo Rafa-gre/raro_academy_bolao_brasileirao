@@ -24,7 +24,7 @@ export class Rodada {
     @ManyToOne(() => Campeonato, campeonato => campeonato.rodada)
     campeonato: Campeonato;
 
-    @OneToMany(() => Partida, partida => partida.rodada)
+    @OneToMany(() => Partida, partida => partida.rodada, { cascade: true })
     partida: Partida[];
 
 }

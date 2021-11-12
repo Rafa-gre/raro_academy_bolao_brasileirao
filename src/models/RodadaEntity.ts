@@ -25,6 +25,6 @@ export class Rodada {
     campeonato: Campeonato;
 
     @OneToMany(() => Partida, partida => partida.rodada, { cascade: true })
-    partida: Partida[];
+    partidas?: Partida[];
 
 }

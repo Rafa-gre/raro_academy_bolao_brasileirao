@@ -1,8 +1,8 @@
-import { Partida } from "./api-brasileirao/Partida";
+import { PartidaDTO } from "./api-brasileirao/partidaDTO";
 
 
 export interface RodadaDTO {
     numeroRodada: number;
-    jogos: Partida[];
+    jogos: PartidaDTO[];
     dataHora: string;
 };

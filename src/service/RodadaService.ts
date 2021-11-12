@@ -5,6 +5,10 @@ import { Rodada } from "../models/RodadaEntity";
 import { IRodadaRepository } from "../repositories/IRodadaRepository";
 import { Connection } from "typeorm";
 import { Campeonato } from "../models/CampeonatoEntity";
+import { RodadaDetalhe } from "../@types/dtos/api-brasileirao/RodadaDetalhe";
+import { PartidaService } from "./PartidaService";
+import { PartidaRepository } from "../repositories/PartidaRepository";
+import { PartidaDTO } from "../@types/dtos/api-brasileirao/partidaDTO";
 
 export class RodadaService {
 
@@ -14,13 +18,18 @@ export class RodadaService {
     async criar(connection: Connection): Promise<void> {
         const httpClient = new AxiosHttpClient();
         const campeonatoClient = new CampeonatoClient(httpClient);
+        const partidaRepository = new PartidaRepository()
+        const partidaService = new PartidaService(partidaRepository);
         const campeonatoRepo = connection.getRepository(Campeonato);
         const campeonatoDb = await campeonatoRepo.findOne({ where: { status: "ativo" } })
         campeonatoClient.idCampeonatoApiExterna = campeonatoDb.idCampeonatoApiExterna;
         const rodadas = await campeonatoClient.getRodadaAPI();
-        const rodadasRepo = rodadas.map(async (rodada: RodadaDTO) => {
+        const detalhesPromises = rodadas.map((rodada: RodadaDTO) => {
+            return campeonatoClient.getRodadaDetalhesAPI(rodada.rodada)
+        })
+        const detalhes: RodadaDetalhe[] = await Promise.all(detalhesPromises);
+        const rodadasDetalheRepo = detalhes.map(async (rodada: RodadaDetalhe) => {
             const rodadaDb = await this.rodadaRepository.findByNumeroRodada(rodada.rodada);
-            console.log(rodadaDb);
             if (!rodadaDb) {
                 return this.rodadaRepository.save(this.rodadaFactory(rodada, campeonatoDb));
             } else {
@@ -30,24 +39,33 @@ export class RodadaService {
                 rodadaDb.rodada = rodada.rodada;
                 rodadaDb.status = rodada.status;
                 rodadaDb.campeonato = campeonatoDb;
+                rodadaDb.partidas = rodada.partidas.map((partida: PartidaDTO) => {
+                    return partidaService.partidaFactory(partida)
+
+                })
 
                 return this.rodadaRepository.save(rodadaDb);
             }
         });
 
 
-        await Promise.all(rodadasRepo)
+        await Promise.all(rodadasDetalheRepo)
     };
 
-    private rodadaFactory(dadosRodada: RodadaDTO, campeonato: Campeonato): Rodada {
+    private rodadaFactory(dadosRodada: RodadaDetalhe, campeonato: Campeonato): Rodada {
+        const partidaRepository = new PartidaRepository()
+        const partidaService = new PartidaService(partidaRepository);
         const rodada = new Rodada();
         rodada.nome = dadosRodada.nome;
         rodada.slug = dadosRodada.slug;
         rodada.rodada = dadosRodada.rodada;
         rodada.status = dadosRodada.status;
         rodada.campeonato = campeonato;
+        rodada.partidas = dadosRodada.partidas.map((partida: PartidaDTO) => {
+            return partidaService.partidaFactory(partida)
+        })
         return rodada
     }
-
-
 }
+
+

@@ -35,7 +35,7 @@ export class TimeService {
         return Promise.all(timesRepo)
     };
 
-    private timeFactory(dadosTime: TimeDTO): Time {
+    public timeFactory(dadosTime: TimeDTO): Time {
         const time = new Time();
         time.id = dadosTime.time_id
         time.nome = dadosTime.nome_popular;

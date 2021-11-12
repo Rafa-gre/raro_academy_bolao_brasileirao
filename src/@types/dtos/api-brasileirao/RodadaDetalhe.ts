@@ -1,4 +1,4 @@
-import { Partida } from "../api-brasileirao/Partida";
+import { PartidaDTO } from "./partidaDTO";
 
 export interface RodadaDetalhe {
     nome: string;
@@ -12,5 +12,5 @@ export interface RodadaDetalhe {
         status: string;
     };
     rodada_anterior: number;
-    partidas: Partida[];
+    partidas: PartidaDTO[];
 };

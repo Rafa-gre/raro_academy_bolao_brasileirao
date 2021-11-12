@@ -1,6 +1,6 @@
-import { Time } from "../api-brasileirao/Time"
+import { Time } from "./Time"
 
-export type Partida = {
+export type PartidaDTO = {
     partida_id: number;
     campeonato: {
         campeonato_id: number;

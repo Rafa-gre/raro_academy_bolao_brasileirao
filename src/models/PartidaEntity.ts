@@ -12,10 +12,10 @@ export class Partida {
     @Column({ nullable: false })
     placar: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     placarMandante: number;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     placarVisitante: number;
 
     @Column({ nullable: false })
@@ -24,19 +24,19 @@ export class Partida {
     @Column({ nullable: false })
     slug: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     dataRealizacao: Date;
 
     @OneToMany(() => Aposta, aposta => aposta.partida)
     apostas: Aposta[];
 
-    @ManyToOne(() => Rodada, rodada => rodada.partida)
+    @ManyToOne(() => Rodada, rodada => rodada.partidas)
     rodada: Rodada;
 
-    @OneToMany(() => Time, time => time.partida)
+    @ManyToOne(() => Time, time => time.partida)
     mandante: Time;
 
-    @OneToMany(() => Time, time => time.partida)
+    @ManyToOne(() => Time, time => time.partida)
     visitante: Time;
 
 }

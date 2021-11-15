@@ -12,7 +12,6 @@ export default class APIBrasileirao {
     public async getTabelaAPI(): Promise<Tabela[]> {
         try {
             const url = `${this.API_BRASILEIRAO}/campeonatos/${this.idCampeonatoApiExterna}/tabela`;
-            console.log(url);
             const campeonato = await this.httpClient.get<Tabela[]>(url, {
                 headers: { Authorization: this.BRASILEIRAO_BEARER },
             });
@@ -30,7 +29,6 @@ export default class APIBrasileirao {
     public async getRodadaAPI(): Promise<RodadaDTO[]> {
         try {
             const url = `${this.API_BRASILEIRAO}/campeonatos/${this.idCampeonatoApiExterna}/rodadas`;
-            console.log(url);
             const rodada = await this.httpClient.get<RodadaDTO[]>(url, {
                 headers: { Authorization: this.BRASILEIRAO_BEARER },
             });

@@ -39,12 +39,14 @@ export class RodadaService {
                 rodadaDb.rodada = rodada.rodada;
                 rodadaDb.status = rodada.status;
                 rodadaDb.campeonato = campeonatoDb;
-                rodadaDb.partidas = rodada.partidas.map((partida: PartidaDTO) => {
-                    return partidaService.partidaFactory(partida, rodadaDb)
+                rodadaDb.partidas = await Promise.all(rodada.partidas.map(async (partida: PartidaDTO) => {
+                    return await partidaService.partidaUpdate(partida, connection)
 
-                })
+                }))
+
 
                 return this.rodadaRepository.save(rodadaDb);
+
             }
         });
 
@@ -62,7 +64,7 @@ export class RodadaService {
         rodada.status = dadosRodada.status;
         rodada.campeonato = campeonato;
         rodada.partidas = dadosRodada.partidas.map((partida: PartidaDTO) => {
-            return partidaService.partidaFactory(partida, rodada)
+            return partidaService.partidaFactory(partida)
         })
         return rodada
     }

@@ -3,14 +3,15 @@ import { TimeRepository } from "../repositories/TimeRepository";
 import { Partida } from "../models/PartidaEntity";
 import { IPartidaRepository } from "../repositories/IPartidaRepository";
 import { TimeService } from "./TimeService";
-import { Rodada } from "models/RodadaEntity";
+import { Connection } from "typeorm";
+import { PartidaRepository } from "../repositories/PartidaRepository";
 
 export class PartidaService {
 
     constructor(private partidaRepository: IPartidaRepository
     ) { }
 
-    public partidaFactory(dadosPartida: PartidaDTO, rodada: Rodada): Partida {
+    public partidaFactory(dadosPartida: PartidaDTO): Partida {
         const timeRepo = new TimeRepository()
         const timeService = new TimeService(timeRepo);
         const partida = new Partida()
@@ -22,9 +23,23 @@ export class PartidaService {
         partida.slug = dadosPartida.slug;
         partida.placar = dadosPartida.placar;
         partida.status = dadosPartida.status;
-        partida.rodada = rodada;
+
         return partida
     }
+    public async partidaUpdate(dadosPartida: PartidaDTO, connection: Connection): Promise<Partida> {
+        const timeRepo = new TimeRepository()
+        const timeService = new TimeService(timeRepo);
+        const partida = await connection.getCustomRepository(PartidaRepository).findBySlug(dadosPartida.slug)
+        partida.mandante = timeService.timeFactory(dadosPartida.time_mandante)
+        partida.visitante = timeService.timeFactory(dadosPartida.time_visitante)
+        partida.dataRealizacao = new Date(dadosPartida.data_realizacao_iso);
+        partida.placarMandante = dadosPartida.placar_mandante;
+        partida.placarVisitante = dadosPartida.placar_visitante;
+        partida.slug = dadosPartida.slug;
+        partida.placar = dadosPartida.placar;
+        partida.status = dadosPartida.status;
 
+        return partida
+    }
 
 }
